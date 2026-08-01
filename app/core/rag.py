@@ -315,7 +315,7 @@ Question:
                             "reference_url": csv_metadata.get("reference_url", ""),
                             "document_date": csv_metadata.get("document_date", ""),
                             "description": csv_metadata.get("description", ""),
-                            "Devops": csv_metadata.get("Devops", "devops")
+                            "Devops": csv_metadata.get("Devops", "")
                         })
                     
                     # Add metadata to chunks
