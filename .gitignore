@@ -1,0 +1,239 @@
+# =========================================================
+# TERRAFORM
+# =========================================================
+
+# Local Terraform directory
+.terraform/
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Terraform crash logs
+crash.log
+crash.*.log
+
+# Terraform variable files
+# May contain passwords, API keys, and sensitive values
+*.tfvars
+*.tfvars.json
+
+# Terraform plan files
+*.tfplan
+tfplan
+tfplan.*
+
+# Terraform override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform lock info
+.terraform.tfstate.lock.info
+
+# Terraform CLI configuration
+.terraformrc
+terraform.rc
+
+# Terraform generated JSON/output files
+terraform/*.json
+
+# Generated Kubernetes config
+kubeconfig.yaml
+
+
+# =========================================================
+# ENVIRONMENT VARIABLES / SECRETS
+# =========================================================
+
+.env
+.env.local
+.env.*.local
+
+# Optional environment files
+*.env
+
+# Secret files
+*.secret
+*.key
+*.pem
+
+
+# =========================================================
+# PYTHON
+# =========================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Python build files
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+
+# Python package files
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+
+# =========================================================
+# FASTAPI / UVICORN
+# =========================================================
+
+*.log
+logs/
+
+
+# =========================================================
+# TESTING
+# =========================================================
+
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+
+# =========================================================
+# TYPE CHECKING
+# =========================================================
+
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+.pyre/
+.pytype/
+
+
+# =========================================================
+# CELERY
+# =========================================================
+
+celerybeat-schedule
+celerybeat.pid
+
+
+# =========================================================
+# IDE / EDITORS
+# =========================================================
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+
+# =========================================================
+# OS FILES
+# =========================================================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+
+# =========================================================
+# DOCKER
+# =========================================================
+
+# Docker environment files
+docker.env
+
+# Docker compose local overrides
+docker-compose.override.yml
+
+
+# =========================================================
+# KUBERNETES
+# =========================================================
+
+# Local Kubernetes configuration
+kubeconfig.yaml
+
+# Kubernetes secrets
+k8s/secrets/
+kubernetes/secrets/
+
+
+# =========================================================
+# GENERATED / TEMPORARY FILES
+# =========================================================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Temporary application files
+tmp/
+temp/
+
+
+# =========================================================
+# AWS
+# =========================================================
+
+# AWS CLI credentials/config should never be committed
+.aws/
+
+# AWS SAM build
+.aws-sam/
+
+# CDK output
+.cdk.out/
+
+# Local AWS configuration
+aws-config/
+
+
+# =========================================================
+# APPLICATION DATA
+# =========================================================
+
+# Local uploaded documents
+uploads/
+
+# Local generated data
+data/
+
+# Local vector database files
+vector_data/
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
