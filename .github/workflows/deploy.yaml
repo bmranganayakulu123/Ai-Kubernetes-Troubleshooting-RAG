@@ -26,41 +26,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-
-      - name: Print GitHub OIDC claims
-        shell: bash
-        run: |
-          RESPONSE=$(curl -sS \
-            -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
-            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com")
-
-          TOKEN=$(echo "$RESPONSE" | python -c "import sys,json; print(json.load(sys.stdin)['value'])")
-
-          PAYLOAD=$(echo "$TOKEN" | cut -d '.' -f2)
-
-          python - "$PAYLOAD" <<'PY'
-          import base64
-          import json
-          import sys
-
-          payload = sys.argv[1]
-          payload += "=" * (-len(payload) % 4)
-          claims = json.loads(base64.urlsafe_b64decode(payload))
-
-          safe_claims = {
-              "sub": claims.get("sub"),
-              "aud": claims.get("aud"),
-              "repository": claims.get("repository"),
-              "repository_id": claims.get("repository_id"),
-              "repository_owner": claims.get("repository_owner"),
-              "repository_owner_id": claims.get("repository_owner_id"),
-              "ref": claims.get("ref"),
-              "event_name": claims.get("event_name"),
-          }
-
-          print(json.dumps(safe_claims, indent=2))
-          PY
-
+        
       - name: Configure AWS credentials using OIDC
         if: ${{ false }}
         uses: aws-actions/configure-aws-credentials@v6.1.1
@@ -118,7 +84,7 @@ jobs:
             --timeout=10m
 
       - name: Show deployment status
-        if: always()
+        if: success()
         run: |
           kubectl get deployment,pods,service,ingress \
             --namespace "${K8S_NAMESPACE}" \
