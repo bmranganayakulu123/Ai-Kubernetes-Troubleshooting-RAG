@@ -31,7 +31,7 @@ resource "aws_iam_role" "github_actions_deploy" {
         Condition = {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
-            "token.actions.githubusercontent.com:sub" = "repo:bmranganayakulu123/Ai-Kubernetes-Troubleshooting-RAG:ref:refs/heads/main"
+            "token.actions.githubusercontent.com:sub" = "repo:bmranganayakulu123@191998108/Ai-Kubernetes-Troubleshooting-RAG@1319162866:ref:refs/heads/main"
           }
         }
       }
