@@ -1,0 +1,90 @@
+name: Build and Deploy to EKS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: ap-northeast-2
+  ECR_REPOSITORY: ai-kubernetes-troubleshooting-rag
+  EKS_CLUSTER_NAME: ai-k8s-rag-prod
+  K8S_NAMESPACE: rag-production
+  K8S_DEPLOYMENT: rag-api
+  K8S_CONTAINER: rag-api
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::800380166677:role/ai-kubernetes-troubleshooting-rag-prod-github-actions-deploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Generate image URI
+        id: image
+        shell: bash
+        run: |
+          IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY}:${GITHUB_SHA}"
+          echo "uri=${IMAGE_URI}" >> "$GITHUB_OUTPUT"
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t "${{ steps.image.outputs.uri }}" \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push "${{ steps.image.outputs.uri }}"
+
+      - name: Configure kubectl for EKS
+        run: |
+          aws eks update-kubeconfig \
+            --region "${AWS_REGION}" \
+            --name "${EKS_CLUSTER_NAME}"
+
+      - name: Verify Kubernetes access
+        run: |
+          kubectl auth can-i patch deployments \
+            --namespace "${K8S_NAMESPACE}"
+
+      - name: Deploy image to EKS
+        run: |
+          kubectl set image \
+            deployment/${K8S_DEPLOYMENT} \
+            ${K8S_CONTAINER}=${{ steps.image.outputs.uri }} \
+            --namespace "${K8S_NAMESPACE}"
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status \
+            deployment/${K8S_DEPLOYMENT} \
+            --namespace "${K8S_NAMESPACE}" \
+            --timeout=10m
+
+      - name: Show deployment status
+        if: always()
+        run: |
+          kubectl get deployment,pods,service,ingress \
+            --namespace "${K8S_NAMESPACE}" \
+            -o wide
