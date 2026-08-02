@@ -524,4 +524,8 @@ cd terraform\prod
 terraform destroy
 
 
-<img width="1365" height="706" alt="image" src="https://github.com/user-attachments/assets/be815633-6d6b-4a6e-80d5-3569461b250d" />
+<img width="975" height="490" alt="image" src="https://github.com/user-attachments/assets/eaa936de-5c3e-423a-a942-ad2abf804ec6" />
+<img width="975" height="486" alt="image" src="https://github.com/user-attachments/assets/0371acc8-7720-4abc-b49d-a0fd13d630a1" />
+
+<img width="975" height="517" alt="image" src="https://github.com/user-attachments/assets/cad70d5f-5d26-401b-a058-40e1164ca368" />
+
