@@ -27,8 +27,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Debug GitHub OIDC claims
+        uses: github/actions-oidc-debugger@main
+        with:
+          audience: sts.amazonaws.com
+          
       - name: Configure AWS credentials using OIDC
-        uses: uses: aws-actions/configure-aws-credentials@v6
+        uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
           role-to-assume: arn:aws:iam::800380166677:role/ai-kubernetes-troubleshooting-rag-prod-github-actions-deploy
           aws-region: ${{ env.AWS_REGION }}
