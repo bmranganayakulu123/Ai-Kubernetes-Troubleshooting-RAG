@@ -522,3 +522,6 @@ Then destroy the infrastructure:
 
 cd terraform\prod
 terraform destroy
+
+
+<img width="1365" height="706" alt="image" src="https://github.com/user-attachments/assets/be815633-6d6b-4a6e-80d5-3569461b250d" />
