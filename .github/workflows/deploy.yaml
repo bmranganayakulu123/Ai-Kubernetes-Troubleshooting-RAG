@@ -26,9 +26,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        
+
       - name: Configure AWS credentials using OIDC
-        if: ${{ false }}
         uses: aws-actions/configure-aws-credentials@v6.1.1
         with:
           role-to-assume: arn:aws:iam::800380166677:role/ai-kubernetes-troubleshooting-rag-prod-github-actions-deploy
