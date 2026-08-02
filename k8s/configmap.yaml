@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-config
+  namespace: rag-production
+data:
+  AWS_REGION: "ap-northeast-2"
+  AWS_S3_BUCKET_NAME: "ai-k8s-rag-documents-800380166677"
+
+  EMBEDDING_MODEL: "text-embedding-3-small"
+  LLM_MODEL: "gpt-4.1-mini"
+
+  APP_HOST: "0.0.0.0"
+  APP_PORT: "8000"
+  LOG_LEVEL: "INFO"
+
+  RETRIEVAL_K: "4"

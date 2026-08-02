@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rag-api-ingress
+  namespace: rag-production
+  annotations:
+    alb.ingress.kubernetes.io/load-balancer-name: ai-k8s-rag-alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+
+    alb.ingress.kubernetes.io/healthcheck-path: /api/health
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/success-codes: "200"
+
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+
+    alb.ingress.kubernetes.io/tags: Project=AI-Kubernetes-Troubleshooting-RAG,Environment=prod,ManagedBy=Kubernetes
+
+spec:
+  ingressClassName: alb
+
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rag-api-service
+                port:
+                  number: 80

@@ -237,3 +237,27 @@ vector_data/
 *.db
 *.sqlite
 *.sqlite3
+
+# Terraform working directories
+**/.terraform/*
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+
+# Terraform variable files
+*.tfvars
+
+# Terraform plans
+*.tfplan
+
+# Local secrets
+.env
+k8s/secret.yaml
+
+*.tfvars
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+.env
+k8s/secret.yaml
